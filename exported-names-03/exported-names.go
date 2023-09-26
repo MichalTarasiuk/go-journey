@@ -1,10 +1,10 @@
-package main
+package exportedNames
 
 import (
 	"fmt"
 	"math"
 )
 
-func main() {
+func Example() {
 	fmt.Println(math.Pi)
 }

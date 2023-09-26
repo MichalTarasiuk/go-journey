@@ -1,4 +1,4 @@
-package main
+package imports
 
 // import "fmt"
 // import "math"
@@ -8,6 +8,6 @@ import (
 	"math"
 )
 
-func main() {
+func Example() {
 	fmt.Printf("Now you have %g problems.\n", math.Sqrt(7))
 }
