@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 // ok
-var someName = "hello"
+// var someName = "hello"
 // error
 // someName := "hello"
 
