@@ -4,9 +4,9 @@ import "fmt"
 
 func main() {
 	menu := map[string]float64{
-		"soup": 4.99,
-		"pie": 7.99,
-		"salad": 6.99,
+		"soup":           4.99,
+		"pie":            7.99,
+		"salad":          6.99,
 		"toffie pudding": 3.55,
 	}
 

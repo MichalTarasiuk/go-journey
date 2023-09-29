@@ -10,7 +10,6 @@ func main() {
 	var numbers = [4]int{1, 2, 3, 4}
 	numbers[1] = 5
 
-
 	fmt.Println(ages, len(ages))
 	fmt.Println(numbers, len(numbers))
 

@@ -30,6 +30,6 @@ func main() {
 			break
 		}
 
-		fmt.Printf("the value at pos %v is %v \n", index, value )
+		fmt.Printf("the value at pos %v is %v \n", index, value)
 	}
 }

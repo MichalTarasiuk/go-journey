@@ -19,7 +19,7 @@ func main() {
 	// can't change the type
 	// nameOne = 23
 
-	nameOne  = "peach"
+	nameOne = "peach"
 	nameThree = "bowser"
 
 	fmt.Println(nameOne, nameTwo, nameThree)
@@ -35,7 +35,7 @@ func main() {
 	fmt.Println(age, ageTwo, ageThree)
 
 	// bits & memory
-	var numberOne int8 = 25  
+	var numberOne int8 = 25
 	var numberTwo int8 = -128
 	var numberThree int16 = 256
 

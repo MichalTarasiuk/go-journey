@@ -22,7 +22,7 @@ func getInitials(n string) (string, string) {
 }
 
 func main() {
-  fn1, sn1 := getInitials("tifa lockhart")
+	fn1, sn1 := getInitials("tifa lockhart")
 	fmt.Println(fn1, sn1)
 
 	fn2, sn2 := getInitials("tifa")
