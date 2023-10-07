@@ -3,7 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	// initialize variables here
 	var smsSendingLimit int
 	var costPerSMS float64
 	var hasPermission bool
