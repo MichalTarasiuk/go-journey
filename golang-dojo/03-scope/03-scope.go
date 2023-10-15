@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gojourney/golang-dojo/scope/integers"
+	"gojourney/golang-dojo/03-scope/integers"
 )
 
 // Summary notes:
