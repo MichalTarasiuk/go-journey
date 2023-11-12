@@ -6,6 +6,15 @@
 
 - **Module**: A module in Go refers to a collection of related Go packages that are released together. Modules help manage dependencies and versioning of packages within a project.
 
+## Commands
+
+- **go run**: The command is used to compile and execute Go programs directly from the source code.
+- **go mod init**: The command is used to initialize a new Go module in the current directory. It creates a go.mod file, which serves as the module definition. The go.mod file contains information about the module, its dependencies, and other metadata.
+- **go mod tidy**: The command is used to remove any dependencies from your go.mod file that are no longer required by your code. It ensures that your go.mod file reflects the actual dependencies used in your project.
+- **go work init**: The command is used to initialize a new Go workspace in the current directory. It creates a go.work file. With multi-module workspaces, you can tell the Go command that you’re writing code in multiple modules at the same time and easily build and run code in those modules.
+- **go work use**: The command which adds a module to the workspace.
+- **go get**: The command is used to download and install packages and dependencies from the internet. It adds the specified packages to your go.mod file and downloads them.
+
 ## Go Naming Conventions
 
 In Go, there are some common naming conventions that are widely followed to write clean and idiomatic code. These conventions help make your code more readable and maintainable. Here are some of the key naming conventions in Go:
