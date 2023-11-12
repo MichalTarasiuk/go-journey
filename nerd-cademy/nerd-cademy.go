@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gojourney/nerd-cademy/utils"
+	"nerd-cademy/utils"
 )
 
 func main() {
