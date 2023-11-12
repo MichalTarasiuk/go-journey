@@ -1,8 +1,10 @@
 go 1.21.1
 
-use ./challenges
-use ./free-code-camp
-use ./go-tutorial
-use ./golang-dojo
-use ./nerd-cademy
-use ./net-ninja-tutorial
+use (
+  ./challenges
+  ./free-code-camp
+  ./go-tutorial
+  ./golang-dojo
+  ./nerd-cademy
+  ./net-ninja-tutorial
+)
