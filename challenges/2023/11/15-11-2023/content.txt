@@ -1,0 +1,4 @@
+Hello world, this is a simple example file.
+In this file, we are testing word frequency counting in Go.
+Feel free to modify this file and experiment with different texts.
+This file is just for the sake of the programming challenge.

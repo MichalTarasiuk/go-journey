@@ -29,18 +29,18 @@ func copyMap[Key comparable, Value any](originalMap map[Key]Value) map[Key]Value
 }
 
 func unwind[Key comparable](map1 map[Key]interface{}, key Key) []map[Key]interface{} {
-	newArr := []map[Key]interface{}{}
+	newSlice := []map[Key]interface{}{}
 
 	if slice, ok := map1[key].([]interface{}); ok {
 		for _, item := range slice {
 			copiedMap := copyMap(map1)
 			copiedMap[key] = item
 
-			newArr = append(newArr, copiedMap)
+			newSlice = append(newSlice, copiedMap)
 		}
 	}
 
-	return newArr
+	return newSlice
 }
 
 func main() {
