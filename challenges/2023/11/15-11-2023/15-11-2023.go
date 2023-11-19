@@ -101,7 +101,7 @@ func readFileAndCountWords(filePath string) ([]WordFrequency, error) {
 }
 
 func readFileAndCountWordsExample() {
-	filePath := "content.txt"
+	filePath := "input.txt"
 
 	wordFrequencies, err := readFileAndCountWords(filePath)
 	if err != nil {
