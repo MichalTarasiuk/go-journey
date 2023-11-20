@@ -47,7 +47,7 @@ func aocInput(year int, day int) string {
 	return string(b)
 }
 
-var newlinesRegexp = regexp.MustCompile(`\n\n+`)
+var newlinesRegexp = regexp.MustCompile(`\n+`)
 
 func AocInputParagraphs(year int, day int) [][]string {
 	var pgs [][]string

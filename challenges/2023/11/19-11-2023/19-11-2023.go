@@ -1,49 +1,24 @@
 package main
 
 import (
-	"bufio"
+	"challenges/lib"
 	"fmt"
-	"os"
-	"strconv"
+	"sort"
+	"strings"
 )
 
-func solvePart01() (int, int, error) {
-	file, err := os.Open("input.txt")
-	if err != nil {
-		return 0, 0, err
-	}
-	defer file.Close()
-
-	var (
-		totalCalories              int
-		elfCarryingTheMostCalories int
-		currentElfCalories         int
-	)
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		calorieValue, err := strconv.Atoi(line)
-
-		if err != nil {
-			if currentElfCalories > elfCarryingTheMostCalories {
-				elfCarryingTheMostCalories = currentElfCalories
-			}
-
-			totalCalories += currentElfCalories
-			currentElfCalories = 0
-		} else {
-			currentElfCalories += calorieValue
-		}
+func solvePart01() (int, int) {
+	var sums []int
+	for _, pg := range lib.AocInputParagraphs(2022, 1) {
+		sums = append(sums, lib.Sum(lib.ExtractInts(strings.Join(pg, " "))...))
 	}
 
-	return totalCalories, elfCarryingTheMostCalories, err
+	sort.Sort(sort.Reverse(sort.IntSlice(sums)))
+
+	return sums[0], sums[0] + sums[1] + sums[2]
 }
 
 func main() {
-	totalCalories, elfCarryingTheMostCalories, err := solvePart01()
-	if err != nil {
-		return
-	}
-
+	elfCarryingTheMostCalories, totalCalories := solvePart01()
 	fmt.Printf("total calories: %v, elf carrying the most calories: %v", totalCalories, elfCarryingTheMostCalories)
 }
