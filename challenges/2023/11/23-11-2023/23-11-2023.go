@@ -52,11 +52,12 @@ func main() {
 		lineArr := strings.Split(line, " ")
 
 		me := lineArr[1]
+		meChar := meChars[me]
 
 		them := lineArr[0]
 		themChar := themChars[them]
 
-		total += play(meChars[me], themChar)
+		total += play(meChar, themChar)
 		total2 += play(choose(themChar, outChars[me]), themChar)
 	}
 
