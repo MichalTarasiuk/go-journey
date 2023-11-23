@@ -35,10 +35,6 @@ func aocInput(year int, day int) string {
 		panic(fmt.Sprintf("Getting %v failed: %v", url, resp.Status))
 	}
 
-	if err != nil {
-		panic(fmt.Sprintf("Failed reading %v: %v", url, err))
-	}
-
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(fmt.Sprintf("Failed reading %v: %v", url, err))
@@ -61,4 +57,17 @@ func AocInputParagraphs(year int, day int) [][]string {
 		panic("No paragraphs found")
 	}
 	return pgs
+}
+
+func AocInputLines(year int, day int) []string {
+	var lines []string
+	for _, ln := range strings.Split(aocInput(year, day), "\n") {
+		if len(ln) > 0 {
+			lines = append(lines, ln)
+		}
+	}
+	if len(lines) == 0 {
+		panic("No lines found")
+	}
+	return lines
 }
