@@ -14,6 +14,14 @@ const (
 	scissors shape = 3
 )
 
+type outcome int
+
+const (
+	lose outcome = iota
+	draw
+	win
+)
+
 var beats = map[shape]shape{
 	rock:     scissors,
 	paper:    rock,
@@ -32,18 +40,28 @@ func main() {
 		"B": paper,
 		"C": scissors,
 	}
+	outChars := map[string]outcome{
+		"X": lose,
+		"Y": draw,
+		"Z": win,
+	}
 
-	var total int
+	var total, total2 int
 
 	for _, line := range lib.AocInputLines(2022, 2) {
-		players := strings.Split(line, " ")
-		me := players[1]
-		them := players[0]
+		lineArr := strings.Split(line, " ")
 
-		total += play(meChars[me], themChars[them])
+		me := lineArr[1]
+
+		them := lineArr[0]
+		themChar := themChars[them]
+
+		total += play(meChars[me], themChar)
+		total2 += play(choose(themChar, outChars[me]), themChar)
 	}
 
 	fmt.Println(total)
+	fmt.Println(total2)
 }
 
 func play(meChar, themChar shape) int {
@@ -53,6 +71,18 @@ func play(meChar, themChar shape) int {
 		return 0 + int(meChar)
 	} else if meChar == themChar {
 		return 3 + int(meChar)
+	}
+
+	panic("not reached")
+}
+
+func choose(them shape, out outcome) shape {
+	if out == lose {
+		return beats[them]
+	} else if out == draw {
+		return them
+	} else if out == win {
+		return loses[them]
 	}
 
 	panic("not reached")
