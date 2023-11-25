@@ -8,14 +8,25 @@ func InvertMap[K, V comparable](m map[K]V) map[V]K {
 	return r
 }
 
-func Intersect[K, V comparable](m1 map[K]V, m2 map[K]V) map[K]V {
-	m3 := make(map[K]V)
-	for k, v := range m1 {
-		if _, ok := m2[k]; ok {
-			m3[k] = v
+func MapIntersect[K, V comparable](maps ...map[K]V) map[K]V {
+	if len(maps) == 0 {
+		return make(map[K]V)
+	}
+
+	result := make(map[K]V)
+	for k, v := range maps[0] {
+		foundInAll := true
+		for _, m := range maps[1:] {
+			if _, ok := m[k]; !ok {
+				foundInAll = false
+				break
+			}
+		}
+		if foundInAll {
+			result[k] = v
 		}
 	}
-	return m3
+	return result
 }
 
 func MapSomeKey[K, V comparable](m map[K]V) K {
@@ -23,4 +34,12 @@ func MapSomeKey[K, V comparable](m map[K]V) K {
 		return k
 	}
 	panic("Can't get key from empty map")
+}
+
+func SliceToMap[T comparable](slice []T) map[T]T {
+	result := make(map[T]T)
+	for _, v := range slice {
+		result[v] = v
+	}
+	return result
 }

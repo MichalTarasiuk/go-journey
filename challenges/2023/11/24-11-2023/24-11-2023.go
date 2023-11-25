@@ -20,7 +20,7 @@ func main() {
 			second[rune]++
 		}
 
-		both := lib.Intersect(first, second)
+		both := lib.MapIntersect(first, second)
 		lib.Assertf(len(both) == 1, "Line %q does not have exactly one common element: %v", line, both)
 
 		sum += priority(lib.MapSomeKey(both))

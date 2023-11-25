@@ -24,7 +24,6 @@ func ChunkEvery[T any](s []T, count int) [][]T {
 }
 
 func At[T any](s [][]T, i int) ([]T, int, error) {
-
 	if i < 0 {
 		i = len(s) + i
 	}
@@ -34,4 +33,12 @@ func At[T any](s [][]T, i int) ([]T, int, error) {
 	}
 
 	return s[i], i, nil
+}
+
+func MapOverSlice[T comparable, R any](s []T, f func(T) R) []R {
+	r := []R{}
+	for _, v := range s {
+		r = append(r, f(v))
+	}
+	return r
 }
