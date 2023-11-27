@@ -12,7 +12,7 @@ import (
 
 var sessionPath = path.Join(os.Getenv("HOME"), ".advent-of-code-session")
 
-func aocInput(year int, day int) string {
+func AocInput(year int, day int) string {
 	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -47,7 +47,7 @@ var newlinesRegexp = regexp.MustCompile(`\n+`)
 
 func AocInputParagraphs(year int, day int) [][]string {
 	var paragraphs [][]string
-	input := strings.TrimSpace(aocInput(year, day))
+	input := strings.TrimSpace(AocInput(year, day))
 	for _, paragraph := range newlinesRegexp.Split(input, -1) {
 		if len(paragraph) > 0 {
 			paragraphs = append(paragraphs, strings.Split(paragraph, "\n"))
@@ -61,7 +61,7 @@ func AocInputParagraphs(year int, day int) [][]string {
 
 func AocInputLines(year int, day int) []string {
 	var lines []string
-	input := strings.TrimSpace(aocInput(year, day))
+	input := strings.TrimSpace(AocInput(year, day))
 	for _, line := range newlinesRegexp.Split(input, -1) {
 		if len(line) > 0 {
 			lines = append(lines, line)
