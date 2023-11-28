@@ -49,9 +49,7 @@ func parseStacks(stacks string) map[int][]string {
 }
 
 type ParsedProcedure struct {
-	count       int
-	source      int
-	destination int
+	count, source, destination int
 }
 
 func parseProcedures(procedures string) []ParsedProcedure {
