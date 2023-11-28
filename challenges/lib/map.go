@@ -43,3 +43,11 @@ func SliceToMap[T comparable](slice []T) map[T]T {
 	}
 	return result
 }
+
+func CopyMap[K comparable, V any](m map[K]V) map[K]V {
+	m2 := make(map[K]V)
+	for k, v := range m {
+		m2[k] = v
+	}
+	return m2
+}

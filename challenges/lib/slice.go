@@ -76,8 +76,14 @@ func StringsToNumbers(s []string) ([]int, error) {
 	return r, nil
 }
 
-func ReverseSlice[T any](s []T) []T {
+func CopyAndReverseSlice[T any](s []T) []T {
+	s = CopySlice(s)
 	slices.Reverse(s)
-
 	return s
+}
+
+func CopySlice[T any](s []T) []T {
+	r := make([]T, len(s))
+	copy(r, s)
+	return r
 }

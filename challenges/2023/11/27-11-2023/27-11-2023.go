@@ -73,7 +73,8 @@ func parseProcedures(procedures string) []ParsedProcedure {
 	return parsedProcedures
 }
 
-func move(stacks map[int][]string, procedures []ParsedProcedure) {
+func move(stacks map[int][]string, procedures []ParsedProcedure, reverse bool) map[int][]string {
+	stacks = lib.CopyMap(stacks)
 	for _, procedure := range procedures {
 		source, exists := stacks[procedure.source]
 		if !exists {
@@ -81,21 +82,15 @@ func move(stacks map[int][]string, procedures []ParsedProcedure) {
 		}
 
 		if len(source) >= procedure.count {
+			items := source[len(source)-procedure.count:]
+			stacks[procedure.destination] = append(stacks[procedure.destination], lib.If(reverse, lib.CopyAndReverseSlice(items), items)...)
 			stacks[procedure.source] = source[:len(source)-procedure.count]
-			stacks[procedure.destination] = append(stacks[procedure.destination], lib.ReverseSlice(source[len(source)-procedure.count:])...)
 		}
 	}
+	return stacks
 }
 
-func main() {
-	input := lib.AocInput(2022, 5)
-
-	stacks, procedures := splitInput(input)
-	parsedStacks := parseStacks(stacks)
-	parsedProcedures := parseProcedures(procedures)
-
-	move(parsedStacks, parsedProcedures)
-
+func extractLettersFromStacks(parsedStacks map[int][]string) string {
 	result := make([]string, len(parsedStacks))
 	for position, parsedStack := range parsedStacks {
 		letter, _, error := lib.At(parsedStack, -1)
@@ -105,5 +100,19 @@ func main() {
 		}
 		result[position-1] = letter
 	}
-	fmt.Println(strings.Join(result, ""))
+	return strings.Join(result, "")
+}
+
+func main() {
+	input := lib.AocInput(2022, 5)
+
+	stacks, procedures := splitInput(input)
+	parsedStacks := parseStacks(stacks)
+	parsedProcedures := parseProcedures(procedures)
+
+	parsedStacks1 := move(parsedStacks, parsedProcedures, true)
+	parsedStacks2 := move(parsedStacks, parsedProcedures, false)
+
+	fmt.Println(extractLettersFromStacks(parsedStacks1))
+	fmt.Println(extractLettersFromStacks(parsedStacks2))
 }
