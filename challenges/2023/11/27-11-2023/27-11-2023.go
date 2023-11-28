@@ -98,5 +98,14 @@ func main() {
 
 	move(parsedStacks, parsedProcedures)
 
-	fmt.Println(parsedStacks)
+	result := make([]string, len(parsedStacks))
+	for position, parsedStack := range parsedStacks {
+		letter, _, error := lib.At(parsedStack, -1)
+
+		if error != nil {
+			continue
+		}
+		result[position-1] = letter
+	}
+	fmt.Println(strings.Join(result, ""))
 }
