@@ -12,7 +12,7 @@ import (
 
 var sessionPath = path.Join(os.Getenv("HOME"), ".advent-of-code-session")
 
-func AocInput(year int, day int) string {
+func AocInput(year, day int) string {
 	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
