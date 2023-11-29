@@ -38,6 +38,7 @@ func b() {
 }
 
 func c() (i int) {
+	// Deferred functions may read and assign to the returning function’s named return values.
 	defer func() { i++ }()
 	return 1
 }
