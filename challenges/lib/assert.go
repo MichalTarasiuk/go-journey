@@ -11,3 +11,9 @@ func Assertf(cond bool, message string, args ...any) {
 func Panicf(s string, args ...any) {
 	Assertf(false, s, args...)
 }
+
+func AssertNil(v any) {
+	if v != nil {
+		panic(v)
+	}
+}

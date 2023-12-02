@@ -5,28 +5,45 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
+	"strings"
+	"unicode"
 )
 
-func solvePart1(inputLines []string) int {
-	resultSum := 0
+func main() {
+	var sum, sum2 int
 	for _, line := range lib.AocInputLines(2023, 01) {
-		ints := lib.ExtractIndividualInts(line)
+		firstIndex := strings.IndexFunc(line, unicode.IsDigit)
+		lastIndex := strings.LastIndexFunc(line, unicode.IsDigit)
 
-		first := ints[0]
-		last := ints[len(ints)-1]
+		finalInt, err := strconv.Atoi(string(line[firstIndex]) + string(line[lastIndex]))
+		lib.AssertNil(err)
 
-		final := fmt.Sprintf("%d%d", first, last)
+		sum += finalInt
 
-		if finalInt, err := strconv.Atoi(final); err == nil {
-			resultSum += finalInt
-		}
+		first2 := part2Vals[part2Regexp.FindString(line)]
+		last2 := part2Vals[part2Regexp2.FindStringSubmatch(line)[1]]
+		finalInt2 := 10*first2 + last2
+
+		sum2 += finalInt2
+
 	}
-	return resultSum
+	fmt.Println(sum)
+	fmt.Println(sum2)
 }
 
-var numberAndTextRegex = regexp.MustCompile(`(\d|one|two|three|four|five|six|seven|eight|nine)`)
+var part2Regexp = regexp.MustCompile(`\d|one|two|three|four|five|six|seven|eight|nine`)
+var part2Regexp2 = regexp.MustCompile(".*(" + part2Regexp.String() + ")")
 
-var textToNumberMap = map[string]int{
+var part2Vals = map[string]int{
+	"1":     1,
+	"2":     2,
+	"3":     3,
+	"4":     4,
+	"5":     5,
+	"6":     6,
+	"7":     7,
+	"8":     8,
+	"9":     9,
 	"one":   1,
 	"two":   2,
 	"three": 3,
@@ -36,43 +53,4 @@ var textToNumberMap = map[string]int{
 	"seven": 7,
 	"eight": 8,
 	"nine":  9,
-}
-
-func extractIntegersFromString(line string) []int {
-	integers := []int{}
-	for _, str := range numberAndTextRegex.FindAllString(line, -1) {
-		if num, err := strconv.Atoi(str); err == nil {
-			integers = append(integers, num)
-		} else if mappedNum, ok := textToNumberMap[str]; ok {
-			integers = append(integers, mappedNum)
-		}
-	}
-	return integers
-}
-
-func solvePart2(inputLines []string) int {
-	resultSum := 0
-	for _, inputLine := range inputLines {
-		integers := extractIntegersFromString(inputLine)
-
-		firstInteger := integers[0]
-		lastInteger := integers[len(integers)-1]
-
-		concatenatedString := fmt.Sprintf("%d%d", firstInteger, lastInteger)
-		concatenatedInteger, err := strconv.Atoi(concatenatedString)
-
-		if err != nil {
-			continue
-		}
-
-		resultSum += concatenatedInteger
-	}
-	return resultSum
-}
-
-func main() {
-	inputLines := lib.AocInputLines(2023, 01)
-
-	fmt.Println(solvePart1(inputLines))
-	fmt.Println(solvePart2(inputLines))
 }

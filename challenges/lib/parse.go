@@ -26,13 +26,3 @@ func ExtractInt64s(s string) []int64 {
 	Assertf(len(vals) > 0, "No ints found")
 	return vals
 }
-
-func ExtractIndividualInts(s string) []int {
-	var ints []int
-	for _, r := range s {
-		if i, err := strconv.Atoi(string(r)); err == nil {
-			ints = append(ints, i)
-		}
-	}
-	return ints
-}
