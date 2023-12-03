@@ -9,13 +9,17 @@ import (
 func main() {
 	total := map[string]int{"red": 12, "green": 13, "blue": 14}
 
-	var result int
+	var result1 int
+	var result2 int
 	for _, line := range lib.AocInputLines(2023, 2) {
+		possible := true
+
 		var id int
 		var sets string
 		lib.Extract(line, `^Game (\d+): (.+)`, &id, &sets)
 
-		possible := true
+		counts := map[string]int{"red": 0, "green": 0, "blue": 0}
+
 		for _, set := range strings.Split(sets, "; ") {
 			for _, cubes := range strings.Split(set, ", ") {
 				var cnt int
@@ -25,11 +29,16 @@ func main() {
 				if cnt > total[color] {
 					possible = false
 				}
+				counts[color] = lib.Max(counts[color], cnt)
 			}
 		}
+
 		if possible {
-			result += id
+			result1 += id
 		}
+		power := counts["red"] * counts["green"] * counts["blue"]
+		result2 += power
 	}
-	fmt.Println(result)
+	fmt.Println(result1)
+	fmt.Println(result2)
 }
