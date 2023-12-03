@@ -15,7 +15,7 @@ func hasSymbol(s string) bool {
 
 func main() {
 	result := 0
-	input := lib.SliceToMap(lib.AocInputLines(2023, 03))
+	input := lib.SliceToMap([]string{"467..114..", "...*......", "..35..633.", "......#...", "617*......", ".....+.58.", "..592.....", "......755.", "...$.*....", ".664.598.."})
 	for index, line := range input {
 		for _, intWithIndex := range lib.ExtractIntsWithIndex(line) {
 			startIndex := lib.Max(intWithIndex.Index-1, 0)

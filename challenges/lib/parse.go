@@ -72,7 +72,6 @@ func ExtractInt64sWithIndex(s string) []Int64WithIndex {
 		vals = append(vals, Int64WithIndex{Value: value, Index: match[0]})
 	}
 
-	Assertf(len(vals) > 0, "No ints found")
 	return vals
 }
 
