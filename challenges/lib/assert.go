@@ -2,6 +2,12 @@ package lib
 
 import "fmt"
 
+func Assert(v bool) {
+	if !v {
+		panic("Assertion failed")
+	}
+}
+
 func Assertf(cond bool, message string, args ...any) {
 	if !cond {
 		panic(fmt.Sprintf(message, args...))

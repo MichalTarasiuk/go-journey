@@ -3,7 +3,6 @@ package lib
 import (
 	"errors"
 	"slices"
-	"strconv"
 )
 
 func ChunkEvery[T any](s []T, count int) [][]T {
@@ -62,18 +61,6 @@ func TakeEvery[T any](s []T, nth int) []T {
 		}
 	}
 	return r
-}
-
-func StringsToNumbers(s []string) ([]int, error) {
-	var r []int
-	for _, str := range s {
-		n, err := strconv.Atoi(str)
-		if err != nil {
-			return nil, err
-		}
-		r = append(r, n)
-	}
-	return r, nil
 }
 
 func CopyAndReverseSlice[T any](s []T) []T {
