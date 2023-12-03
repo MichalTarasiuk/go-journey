@@ -13,15 +13,15 @@ func hasSymbol(s string) bool {
 	})
 }
 
-func main() {
+func solvePart1(input []string) int {
 	result := 0
-	input := lib.SliceToMap(lib.AocInputLines(2023, 03))
+	inputMap := lib.SliceToMap(input)
 	for index, line := range input {
 		for _, intWithIndex := range lib.ExtractPositiveIntsWithIndex(line) {
 			startIndex := lib.Max(intWithIndex.Index-1, 0)
 			endIndex := lib.Min(startIndex+len(fmt.Sprintf("%d", intWithIndex.Value))+2, len(line))
 
-			if lineBefore, ok := input[index-1]; ok && hasSymbol(lineBefore[startIndex:endIndex]) {
+			if lineBefore, ok := inputMap[index-1]; ok && hasSymbol(lineBefore[startIndex:endIndex]) {
 				result += intWithIndex.Value
 				continue
 			}
@@ -31,11 +31,24 @@ func main() {
 				continue
 			}
 
-			if lineAfter, ok := input[index+1]; ok && hasSymbol(lineAfter[startIndex:endIndex]) {
+			if lineAfter, ok := inputMap[index+1]; ok && hasSymbol(lineAfter[startIndex:endIndex]) {
 				result += intWithIndex.Value
 				continue
 			}
 		}
 	}
-	fmt.Println(result)
+	return result
+}
+
+func solvePart2(input []string) int {
+	result := 0
+
+	return result
+}
+
+func main() {
+	input := lib.AocInputLines(2023, 03)
+
+	fmt.Println(solvePart1(input))
+	fmt.Println(solvePart2(input))
 }
