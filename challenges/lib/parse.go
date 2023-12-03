@@ -39,6 +39,43 @@ func StringsToNumbers(s []string) ([]int, error) {
 	return r, nil
 }
 
+type IntWithIndex struct {
+	Value int
+	Index int
+}
+
+func ExtractIntsWithIndex(s string) []IntWithIndex {
+	int64sWithIndex := ExtractInt64sWithIndex(s)
+	vals := make([]IntWithIndex, len(int64sWithIndex))
+
+	for i, v64 := range int64sWithIndex {
+		vals[i] = IntWithIndex{Value: int(v64.Value), Index: v64.Index}
+	}
+
+	return vals
+}
+
+type Int64WithIndex struct {
+	Value int64
+	Index int
+}
+
+func ExtractInt64sWithIndex(s string) []Int64WithIndex {
+	var vals []Int64WithIndex
+	matches := intRegexp.FindAllStringIndex(s, -1)
+
+	for _, match := range matches {
+		strNum := s[match[0]:match[1]]
+		value, err := strconv.ParseInt(strNum, 10, 64)
+		Assertf(err == nil, "Failed parsing %q as int64: %v", strNum, err)
+
+		vals = append(vals, Int64WithIndex{Value: value, Index: match[0]})
+	}
+
+	Assertf(len(vals) > 0, "No ints found")
+	return vals
+}
+
 var regexpCache = make(map[string]*regexp.Regexp)
 
 func getRegexp(re string) *regexp.Regexp {

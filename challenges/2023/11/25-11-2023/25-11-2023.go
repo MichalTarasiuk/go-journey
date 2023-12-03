@@ -10,7 +10,7 @@ func main() {
 	r := 0
 	for _, chunk := range lib.ChunkEvery(lib.AocInputLines(2022, 3), 3) {
 		maps := lib.MapOverSlice(chunk, func(item string) map[string]string {
-			return lib.SliceToMap(strings.Split(item, ""))
+			return lib.DistinctValuesToMap(strings.Split(item, ""))
 		})
 		badge := lib.MapSomeKey(lib.MapIntersect(maps...))
 

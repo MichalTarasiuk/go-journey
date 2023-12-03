@@ -36,10 +36,18 @@ func MapSomeKey[K, V comparable](m map[K]V) K {
 	panic("Can't get key from empty map")
 }
 
-func SliceToMap[T comparable](slice []T) map[T]T {
+func DistinctValuesToMap[T comparable](slice []T) map[T]T {
 	result := make(map[T]T)
 	for _, v := range slice {
 		result[v] = v
+	}
+	return result
+}
+
+func SliceToMap[T any](slice []T) map[int]T {
+	result := make(map[int]T)
+	for i, v := range slice {
+		result[i] = v
 	}
 	return result
 }

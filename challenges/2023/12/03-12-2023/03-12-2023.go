@@ -4,41 +4,38 @@ import (
 	"challenges/lib"
 	"fmt"
 	"strings"
+	"unicode"
 )
 
+func hasSymbol(s string) bool {
+	return strings.ContainsFunc(s, func(r rune) bool {
+		return !unicode.IsNumber(r) && !(string(r) == ".")
+	})
+}
+
 func main() {
-	total := map[string]int{"red": 12, "green": 13, "blue": 14}
+	result := 0
+	input := lib.SliceToMap(lib.AocInputLines(2023, 03))
+	for index, line := range input {
+		for _, intWithIndex := range lib.ExtractIntsWithIndex(line) {
+			startIndex := lib.Max(intWithIndex.Index-1, 0)
+			endIndex := lib.Min(startIndex+len(fmt.Sprintf("%d", intWithIndex.Value))+2, len(line))
 
-	var result1 int
-	var result2 int
-	for _, line := range lib.AocInputLines(2023, 2) {
-		possible := true
+			if lineBefore, ok := input[index-1]; ok && hasSymbol(lineBefore[startIndex:endIndex]) {
+				result += intWithIndex.Value
+				continue
+			}
 
-		var id int
-		var sets string
-		lib.Extract(line, `^Game (\d+): (.+)`, &id, &sets)
+			if hasSymbol(line[startIndex:endIndex]) {
+				result += intWithIndex.Value
+				continue
+			}
 
-		counts := map[string]int{"red": 0, "green": 0, "blue": 0}
-
-		for _, set := range strings.Split(sets, "; ") {
-			for _, cubes := range strings.Split(set, ", ") {
-				var cnt int
-				var color string
-				lib.Extract(cubes, `^(\d+) (red|green|blue)$`, &cnt, &color)
-
-				if cnt > total[color] {
-					possible = false
-				}
-				counts[color] = lib.Max(counts[color], cnt)
+			if lineAfter, ok := input[index+1]; ok && hasSymbol(lineAfter[startIndex:endIndex]) {
+				result += intWithIndex.Value
+				continue
 			}
 		}
-
-		if possible {
-			result1 += id
-		}
-		power := counts["red"] * counts["green"] * counts["blue"]
-		result2 += power
 	}
-	fmt.Println(result1)
-	fmt.Println(result2)
+	fmt.Println(result)
 }
