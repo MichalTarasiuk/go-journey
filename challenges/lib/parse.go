@@ -39,13 +39,15 @@ func StringsToNumbers(s []string) ([]int, error) {
 	return r, nil
 }
 
+var positiveIntRegexp = regexp.MustCompile(`\d+`)
+
 type IntWithIndex struct {
 	Value int
 	Index int
 }
 
-func ExtractIntsWithIndex(s string) []IntWithIndex {
-	int64sWithIndex := ExtractInt64sWithIndex(s)
+func ExtractPositiveIntsWithIndex(s string) []IntWithIndex {
+	int64sWithIndex := ExtractPositiveInt64sWithIndex(s)
 	vals := make([]IntWithIndex, len(int64sWithIndex))
 
 	for i, v64 := range int64sWithIndex {
@@ -60,9 +62,9 @@ type Int64WithIndex struct {
 	Index int
 }
 
-func ExtractInt64sWithIndex(s string) []Int64WithIndex {
+func ExtractPositiveInt64sWithIndex(s string) []Int64WithIndex {
 	var vals []Int64WithIndex
-	matches := intRegexp.FindAllStringIndex(s, -1)
+	matches := positiveIntRegexp.FindAllStringIndex(s, -1)
 
 	for _, match := range matches {
 		strNum := s[match[0]:match[1]]

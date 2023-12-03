@@ -15,9 +15,9 @@ func hasSymbol(s string) bool {
 
 func main() {
 	result := 0
-	input := lib.SliceToMap([]string{"467..114..", "...*......", "..35..633.", "......#...", "617*......", ".....+.58.", "..592.....", "......755.", "...$.*....", ".664.598.."})
+	input := lib.SliceToMap(lib.AocInputLines(2023, 03))
 	for index, line := range input {
-		for _, intWithIndex := range lib.ExtractIntsWithIndex(line) {
+		for _, intWithIndex := range lib.ExtractPositiveIntsWithIndex(line) {
 			startIndex := lib.Max(intWithIndex.Index-1, 0)
 			endIndex := lib.Min(startIndex+len(fmt.Sprintf("%d", intWithIndex.Value))+2, len(line))
 
