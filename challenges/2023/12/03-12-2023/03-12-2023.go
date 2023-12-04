@@ -82,7 +82,7 @@ func findGearOrdinates(inputMap map[int]string, index int, intRange IntRange) (O
 
 func solvePart2(input []string) int {
 	gearsMap := GearsMap{}
-	inputMap := lib.SliceToMap(lib.AocInputLines(2023, 03))
+	inputMap := lib.SliceToMap(input)
 	for lineIndex, line := range inputMap {
 		for _, intWithIndex := range lib.ExtractPositiveIntsWithIndex(line) {
 			intRange := getIntRange(intWithIndex, line)
