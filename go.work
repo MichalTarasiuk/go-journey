@@ -11,4 +11,5 @@ use (
   ./ben-davis
   ./go-blog
   ./discover-packages
+  ./patterns
 )
