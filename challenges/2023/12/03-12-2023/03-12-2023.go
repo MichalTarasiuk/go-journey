@@ -31,23 +31,15 @@ func hasSymbol(s string) bool {
 func solvePart1(input []string) int {
 	result := 0
 	inputMap := lib.SliceToMap(input)
-	for index, line := range inputMap {
-		for _, intWithIndex := range lib.ExtractPositiveIntsWithIndex(line) {
-			intRange := getIntRange(intWithIndex, line)
+	for currentLineIndex, currentLine := range inputMap {
+		for _, intWithIndex := range lib.ExtractPositiveIntsWithIndex(currentLine) {
+			intRange := getIntRange(intWithIndex, currentLine)
 
-			if lineBefore, ok := inputMap[index-1]; ok && hasSymbol(lineBefore[intRange.startIndex:intRange.endIndex]) {
-				result += intWithIndex.Value
-				continue
-			}
-
-			if hasSymbol(line[intRange.startIndex:intRange.endIndex]) {
-				result += intWithIndex.Value
-				continue
-			}
-
-			if lineAfter, ok := inputMap[index+1]; ok && hasSymbol(lineAfter[intRange.startIndex:intRange.endIndex]) {
-				result += intWithIndex.Value
-				continue
+			for index := currentLineIndex - 1; index <= currentLineIndex+1; index++ {
+				if line, ok := inputMap[index]; ok && hasSymbol(line[intRange.startIndex:intRange.endIndex]) {
+					result += intWithIndex.Value
+					continue
+				}
 			}
 		}
 	}
