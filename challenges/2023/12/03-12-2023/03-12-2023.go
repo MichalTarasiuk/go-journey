@@ -90,14 +90,17 @@ func findGearOrdinates(inputMap map[int]string, index int, intRange IntRange) (O
 
 func solvePart2(input []string) int {
 	gearsMap := GearsMap{}
-	inputMap := lib.SliceToMap(input)
-	for index, line := range inputMap {
+	inputMap := lib.SliceToMap(lib.AocInputLines(2023, 03))
+	for lineIndex, line := range inputMap {
 		for _, intWithIndex := range lib.ExtractPositiveIntsWithIndex(line) {
 			intRange := getIntRange(intWithIndex, line)
-			gearOrdinates, error := findGearOrdinates(inputMap, index, intRange)
 
-			if error == nil {
-				gearsMap.set(fmt.Sprintf("%d-%d", gearOrdinates.x, gearOrdinates.y), intWithIndex.Value)
+			for index := lineIndex - 1; index <= lineIndex+1; index++ {
+				gearOrdinates, error := findGearOrdinates(inputMap, index, intRange)
+				if error == nil {
+					gearsMap.set(fmt.Sprintf("%d-%d", gearOrdinates.x, gearOrdinates.y), intWithIndex.Value)
+					break
+				}
 			}
 		}
 	}
