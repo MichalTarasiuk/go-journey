@@ -74,3 +74,19 @@ func CopySlice[T any](s []T) []T {
 	copy(r, s)
 	return r
 }
+
+func FindCommonElements[T comparable](s1, s2 []T) []T {
+	elementsInSlice1 := make(map[T]bool)
+	for _, e1 := range s1 {
+		elementsInSlice1[e1] = true
+	}
+
+	var r []T
+	for _, e2 := range s2 {
+		if elementsInSlice1[e2] {
+			r = append(r, e2)
+			delete(elementsInSlice1, e2)
+		}
+	}
+	return r
+}
