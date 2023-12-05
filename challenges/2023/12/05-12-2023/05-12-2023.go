@@ -17,7 +17,7 @@ func parseSeeds(seeds string) []int {
 	return ints
 }
 
-func parseMapperName(mapName string) (string, string) {
+func parseMapName(mapName string) (string, string) {
 	var source string
 	var destination string
 	lib.Extract(mapName, `(\w+)-to-(\w+) map:`, &source, &destination)
@@ -25,7 +25,7 @@ func parseMapperName(mapName string) (string, string) {
 	return source, destination
 }
 
-func parseMapperValues(mapValues []string) [][]int {
+func parseMapValues(mapValues []string) [][]int {
 	var parsedMapValues [][]int
 	for _, mapValue := range mapValues {
 		var parsedMapValue []int
@@ -39,34 +39,34 @@ func parseMapperValues(mapValues []string) [][]int {
 	return parsedMapValues
 }
 
-type ParsedMapper struct {
+type ParsedMap struct {
 	destination string
 	values      [][]int
 }
 
-func parseMappers(mappers []string) map[string]ParsedMapper {
-	parsedMappers := map[string]ParsedMapper{}
-	for _, mapper := range mappers {
-		splittedMapper := strings.Split(mapper, "\n")
-		source, destionation := parseMapperName(splittedMapper[0])
+func parseMaps(maps []string) map[string]ParsedMap {
+	parsedMaps := map[string]ParsedMap{}
+	for _, aMap := range maps {
+		splittedMap := strings.Split(aMap, "\n")
+		source, destination := parseMapName(splittedMap[0])
 
-		parsedMappers[source] = ParsedMapper{
-			destination: destionation,
-			values:      parseMapperValues(splittedMapper[1:]),
+		parsedMaps[source] = ParsedMap{
+			destination: destination,
+			values:      parseMapValues(splittedMap[1:]),
 		}
 	}
-	return parsedMappers
+	return parsedMaps
 }
 
-func findLocation(mappers map[string]ParsedMapper, source string, value int) int {
-	if parsedMapper, ok := mappers[source]; ok {
-		for _, recipe := range parsedMapper.values {
+func findLocation(maps map[string]ParsedMap, source string, value int) int {
+	if parsedMap, ok := maps[source]; ok {
+		for _, recipe := range parsedMap.values {
 			if !(value >= recipe[1] && value <= recipe[1]+(recipe[2]-1)) {
 				continue
 			}
-			return findLocation(mappers, parsedMapper.destination, value-recipe[1]+recipe[0])
+			return findLocation(maps, parsedMap.destination, value-recipe[1]+recipe[0])
 		}
-		return findLocation(mappers, parsedMapper.destination, value)
+		return findLocation(maps, parsedMap.destination, value)
 	}
 	return value
 }
@@ -79,11 +79,11 @@ func main() {
 	}
 
 	seeds := parseSeeds(doubleNewlines[0])
-	mappers := parseMappers(doubleNewlines[1:])
+	maps := parseMaps(doubleNewlines[1:])
 
 	var locations []int
 	for _, seed := range seeds {
-		locations = append(locations, findLocation(mappers, "seed", seed))
+		locations = append(locations, findLocation(maps, "seed", seed))
 	}
 
 	result := locations[0]
