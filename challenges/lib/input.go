@@ -45,7 +45,7 @@ func AocInput(year, day int) string {
 
 var newlinesRegexp = regexp.MustCompile(`\n+`)
 
-func AocInputParagraphs(year int, day int) [][]string {
+func AocInputParagraphs(year, day int) [][]string {
 	var paragraphs [][]string
 	input := strings.TrimSpace(AocInput(year, day))
 	for _, paragraph := range newlinesRegexp.Split(input, -1) {
@@ -59,7 +59,7 @@ func AocInputParagraphs(year int, day int) [][]string {
 	return paragraphs
 }
 
-func AocInputLines(year int, day int) []string {
+func AocInputLines(year, day int) []string {
 	var lines []string
 	input := strings.TrimSpace(AocInput(year, day))
 	for _, line := range newlinesRegexp.Split(input, -1) {
