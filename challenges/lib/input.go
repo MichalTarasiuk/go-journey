@@ -72,3 +72,13 @@ func AocInputLines(year int, day int) []string {
 	}
 	return lines
 }
+
+func AocInputDoubleNewline(year, day int) []string {
+	input := strings.TrimSpace(AocInput(year, day))
+	doubleNewlines := strings.Split(input, "\n\n")
+
+	if len(doubleNewlines) == 0 {
+		panic("No double new lines found")
+	}
+	return doubleNewlines
+}

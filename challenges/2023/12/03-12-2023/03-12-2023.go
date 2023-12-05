@@ -90,7 +90,7 @@ func solvePart2(input []string) int {
 			for index := lineIndex - 1; index <= lineIndex+1; index++ {
 				gearOrdinates, error := findGearOrdinates(inputMap, index, intRange)
 				if error == nil {
-					gearsMap.set(fmt.Sprintf("%d-%d", gearOrdinates.x, gearOrdinates.y), intWithIndex.Value)
+					gearsMap.set(fmt.Sprintf("%d%d", gearOrdinates.x, gearOrdinates.y), intWithIndex.Value)
 					break
 				}
 			}

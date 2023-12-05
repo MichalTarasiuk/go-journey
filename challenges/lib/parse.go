@@ -27,7 +27,7 @@ func ExtractInt64s(s string) []int64 {
 	return vals
 }
 
-func StringsToNumbers(s []string) ([]int, error) {
+func StringsToInts(s []string) ([]int, error) {
 	var r []int
 	for _, str := range s {
 		n, err := strconv.Atoi(str)

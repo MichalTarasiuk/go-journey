@@ -59,15 +59,15 @@ func parseProcedures(procedures string) []ParsedProcedure {
 	for _, procedure := range strings.Split(procedures, "\n") {
 		pattern := regexp.MustCompile(`move (\d+) from (\d+) to (\d+)`)
 		matches := pattern.FindStringSubmatch(procedure)
-		numbers, error := lib.StringsToNumbers(matches[1:])
+		ints, error := lib.StringsToInts(matches[1:])
 
 		if error != nil {
 			break
 		}
 		parsedProcedures = append(parsedProcedures, ParsedProcedure{
-			count:       numbers[0],
-			source:      numbers[1],
-			destination: numbers[2],
+			count:       ints[0],
+			source:      ints[1],
+			destination: ints[2],
 		})
 	}
 	return parsedProcedures
