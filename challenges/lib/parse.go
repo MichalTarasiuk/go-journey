@@ -16,6 +16,12 @@ func ExtractInts(s string) []int {
 	return vals
 }
 
+func ExtractInt(s string) int {
+	vs := ExtractInts(s)
+	Assertf(len(vs) == 1, "Got %d ints", len(vs))
+	return vs[0]
+}
+
 func ExtractInt64s(s string) []int64 {
 	var vals []int64
 	for _, s := range intRegexp.FindAllString(s, -1) {
