@@ -100,11 +100,10 @@ func main() {
 		lib.Assert(len(seedChunk) == 2)
 		seedRange := lib.NumberRange{
 			Start: seedChunk[0],
-			End:   seedChunk[0] + seedChunk[1],
+			End:   seedChunk[0] + seedChunk[1] - 1,
 		}
 
 		seedToSoil := maps["seed"]
-		var soils []int
 		for _, soil := range seedToSoil.values {
 			soilRange := lib.NumberRange{
 				Start: soil[1],
@@ -116,13 +115,10 @@ func main() {
 				continue
 			}
 			for value := commonRange.Start; value <= commonRange.End; value++ {
-				soils = append(soils, findLocation(maps, seedToSoil.destination, value))
+				locations2 = append(locations2, findLocation(maps, "seed", value))
 			}
 		}
 
-		for _, soil := range soils {
-			locations2 = append(locations2, findLocation(maps, "fertilizer", soil))
-		}
 	}
 	fmt.Println(lib.Min(locations2...))
 }
