@@ -63,3 +63,11 @@ func MapHasKey[K comparable, V any](m map[K]V, k K) bool {
 	_, ok := m[k]
 	return ok
 }
+
+func MapValues[K comparable, V any](m map[K]V) []V {
+	var r []V
+	for _, v := range m {
+		r = append(r, v)
+	}
+	return r
+}
