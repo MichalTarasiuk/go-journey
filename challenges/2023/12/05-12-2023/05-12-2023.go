@@ -3,6 +3,8 @@ package main
 import (
 	"challenges/lib"
 	"fmt"
+	"io/ioutil"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -72,7 +74,13 @@ func findLocation(maps map[string]ParsedMap, source string, value int) int {
 }
 
 func main() {
-	doubleNewlines := lib.AocInputDoubleNewline(2023, 05)
+	body, err := ioutil.ReadFile("./test.txt")
+	if err != nil {
+		log.Fatalf("unable to read file: %v", err)
+	}
+
+	input := strings.TrimSpace(string(body))
+	doubleNewlines := strings.Split(input, "\n\n")
 
 	if len(doubleNewlines) == 0 {
 		panic("No double new lines found")
@@ -81,16 +89,40 @@ func main() {
 	seeds := parseSeeds(doubleNewlines[0])
 	maps := parseMaps(doubleNewlines[1:])
 
-	var locations []int
+	var locations1 []int
 	for _, seed := range seeds {
-		locations = append(locations, findLocation(maps, "seed", seed))
+		locations1 = append(locations1, findLocation(maps, "seed", seed))
 	}
+	fmt.Println(lib.Min(locations1...))
 
-	result := locations[0]
-	for _, location := range locations[1:] {
-		if result > location {
-			result = location
+	var locations2 []int
+	for _, seedChunk := range lib.ChunkEvery(seeds, 2) {
+		lib.Assert(len(seedChunk) == 2)
+		seedRange := lib.NumberRange{
+			Start: seedChunk[0],
+			End:   seedChunk[0] + seedChunk[1],
+		}
+
+		seedToSoil := maps["seed"]
+		var soils []int
+		for _, soil := range seedToSoil.values {
+			soilRange := lib.NumberRange{
+				Start: soil[1],
+				End:   soil[1] + soil[2] - 1,
+			}
+			commonRange := seedRange.FindCommonRange(soilRange)
+
+			if commonRange.Start == -1 && commonRange.End == -1 {
+				continue
+			}
+			for value := commonRange.Start; value <= commonRange.End; value++ {
+				soils = append(soils, findLocation(maps, seedToSoil.destination, value))
+			}
+		}
+
+		for _, soil := range soils {
+			locations2 = append(locations2, findLocation(maps, "fertilizer", soil))
 		}
 	}
-	fmt.Println(result)
+	fmt.Println(lib.Min(locations2...))
 }
