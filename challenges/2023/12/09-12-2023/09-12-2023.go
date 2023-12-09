@@ -10,15 +10,19 @@ func main() {
 	lines := lib.AocInputLines(2023, 9)
 	sort.Strings(lines)
 
-	var sum int
+	var (
+		sum1, sum2 int
+	)
 	for _, line := range lines {
 		history := lib.ExtractInts(line)
-		sum += predicateHistoryValue(history)
+		sum1 += predicateHistoryValue(history, 1)
+		sum2 += predicateHistoryValue(history, -1)
 	}
-	fmt.Println(sum)
+	fmt.Println(sum1)
+	fmt.Println(sum2)
 }
 
-func predicateHistoryValue(lastSequence []int) int {
+func predicateHistoryValue(lastSequence []int, move int) int {
 	sequences := [][]int{lastSequence}
 	currentSequence := lastSequence
 
@@ -36,7 +40,11 @@ func predicateHistoryValue(lastSequence []int) int {
 
 	var historyValue int
 	for _, sequence := range sequences {
-		historyValue = -historyValue + sequence[0]
+		if move == 1 {
+			historyValue += sequence[len(sequence)-1]
+		} else {
+			historyValue = -historyValue + sequence[0]
+		}
 	}
 	return historyValue
 }
