@@ -90,3 +90,18 @@ func FindCommonElements[T comparable](s1, s2 []T) []T {
 	}
 	return r
 }
+
+func All[T any](s []T, predicate func(T) bool) bool {
+	for _, v := range s {
+		if !predicate(v) {
+			return false
+		}
+	}
+	return true
+}
+
+func Shift[T any](s []T, t T) []T {
+	r := []T{t}
+	r = append(r, s...)
+	return r
+}
