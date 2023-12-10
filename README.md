@@ -8,6 +8,9 @@
 
 ## Commands
 
+- **go verseion**: This command is used to print the Go version installed on your system. Running go version in the terminal will display the installed Go version.
+- **go build**: The command is used to compile Go programs. It compiles the Go source code files in the current directory and produces an executable file. For example, running go build in a directory with Go source code will generate an executable with the same name as the directory.
+- **go install**: This command is used to install the Go binary (executable) to the $GOPATH/bin directory. If the command is run in a directory containing Go source files, it compiles and installs the binary. If run without arguments, it installs the Go binaries for the packages specified.
 - **go run**: The command is used to compile and execute Go programs directly from the source code.
 - **go mod init**: The command is used to initialize a new Go module in the current directory. It creates a go.mod file, which serves as the module definition. The go.mod file contains information about the module, its dependencies, and other metadata.
 - **go mod tidy**: The command is used to remove any dependencies from your go.mod file that are no longer required by your code. It ensures that your go.mod file reflects the actual dependencies used in your project.
